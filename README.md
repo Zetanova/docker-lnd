@@ -1,7 +1,7 @@
 ## docker build multiarch 
 ```
-export LN_VERSION=0.10.3-beta
-docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 --build-arg LN_VERSION -t zetanova/lnd:0.10.3-beta -t zetanova/lnd:latest --push .
+export LN_VERSION=0.11.0-beta
+docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 --build-arg LN_VERSION -t zetanova/lnd:0.11.0-beta -t zetanova/lnd:latest --push .
 ```
 
 ## docker setup
@@ -47,7 +47,7 @@ firewall-cmd --reload
 
 ## docker setup
 ```
-docker run -d --name lnd --restart=unless-stopped -v lnd:/home/lnd/.lnd -p 9735:9735 -p 9911:9911 zetanova/lnd:0.10.3-beta
+docker run -d --name lnd --restart=unless-stopped -v lnd:/home/lnd/.lnd -p 9735:9735 -p 9911:9911 zetanova/lnd:0.11.0-beta
    
 ```
 
@@ -58,3 +58,9 @@ init wallet
 docker exec -it lnd lncli create
 ```
 
+## docker backup
+
+manual backup
+```
+docker cp lnd:/home/lnd/.lnd/data/chain/bitcoin/mainnet/channel.backup - | ssh user@remoteserver" tar xvf -"
+```
