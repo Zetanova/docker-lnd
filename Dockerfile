@@ -7,7 +7,8 @@ RUN apk update && apk add curl gnupg
 
 WORKDIR /app
 
-RUN curl https://keybase.io/bitconner/pgp_keys.asc | gpg --import 
+RUN curl https://keybase.io/bitconner/pgp_keys.asc | gpg --import \
+  && curl https://keybase.io/roasbeef/pgp_keys.asc | gpg --import
 
 RUN if [ "${TARGETPLATFORM}" = "linux/amd64" ] || [ "${TARGETPLATFORM}" = "" ]; then export LN_TARGET=linux-amd64; fi \
   && if [ "${TARGETPLATFORM}" = "linux/arm64" ]; then export LN_TARGET=linux-arm64; fi \
@@ -16,7 +17,7 @@ RUN if [ "${TARGETPLATFORM}" = "linux/amd64" ] || [ "${TARGETPLATFORM}" = "" ]; 
   && curl -SLO https://github.com/lightningnetwork/lnd/releases/download/v${LN_VERSION}/manifest-v${LN_VERSION}.txt \
   && curl -SLO https://github.com/lightningnetwork/lnd/releases/download/v${LN_VERSION}/manifest-v${LN_VERSION}.txt.sig \
   && curl -SLO https://github.com/lightningnetwork/lnd/releases/download/v${LN_VERSION}/roasbeef-manifest-v${LN_VERSION}.txt.sig \
-  && gpg --verify roasbeef-manifest-v${LN_VERSION}.txt.sig \
+  && gpg --verify manifest-v${LN_VERSION}.txt.sig \
   && gpg --verify roasbeef-manifest-v0.11.1-beta.txt.sig manifest-v0.11.1-beta.txt \
   && grep " lnd-${LN_TARGET}-v${LN_VERSION}.tar.gz\$" manifest-v${LN_VERSION}.txt | sha256sum -c
 
