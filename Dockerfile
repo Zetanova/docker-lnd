@@ -1,4 +1,4 @@
-FROM alpine:3.12 as build
+FROM alpine:3.13 as build
 ARG TARGETPLATFORM
 #0.10.3-beta
 ARG LN_VERSION
@@ -15,17 +15,17 @@ RUN if [ "${TARGETPLATFORM}" = "linux/amd64" ] || [ "${TARGETPLATFORM}" = "" ]; 
   && if [ "${TARGETPLATFORM}" = "linux/arm/v7" ]; then export LN_TARGET=linux-armv7; fi \
   && curl -SLO https://github.com/lightningnetwork/lnd/releases/download/v${LN_VERSION}/lnd-${LN_TARGET}-v${LN_VERSION}.tar.gz \
   && curl -SLO https://github.com/lightningnetwork/lnd/releases/download/v${LN_VERSION}/manifest-v${LN_VERSION}.txt \
-  && curl -SLO https://github.com/lightningnetwork/lnd/releases/download/v${LN_VERSION}/manifest-v${LN_VERSION}.txt.sig \
-  && curl -SLO https://github.com/lightningnetwork/lnd/releases/download/v${LN_VERSION}/roasbeef-manifest-v${LN_VERSION}.txt.sig \
-  && gpg --verify manifest-v${LN_VERSION}.txt.sig \
-  && gpg --verify roasbeef-manifest-v0.11.1-beta.txt.sig manifest-v0.11.1-beta.txt \
+  && curl -SLO https://github.com/lightningnetwork/lnd/releases/download/v${LN_VERSION}/manifest-bitconner-v${LN_VERSION}.txt.asc \
+  && curl -SLO https://github.com/lightningnetwork/lnd/releases/download/v${LN_VERSION}/manifest-roasbeef-v${LN_VERSION}.txt.asc \
+  && gpg --verify manifest-bitconner-v${LN_VERSION}.txt.asc \
+  && gpg --verify manifest-roasbeef-v${LN_VERSION}.txt.asc \
   && grep " lnd-${LN_TARGET}-v${LN_VERSION}.tar.gz\$" manifest-v${LN_VERSION}.txt | sha256sum -c
 
 RUN tar -xzf *.tar.gz -C . \
   && mv ./lnd-*-v${LN_VERSION} ./lnd
 
 
-FROM alpine:3.12
+FROM alpine:3.13
 
 ENV PATH=/opt/lnd:$PATH
 
