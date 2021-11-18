@@ -1,7 +1,7 @@
 ## docker build multiarch 
 ```
-export LN_VERSION=0.13.0-beta
-docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 --build-arg LN_VERSION -t zetanova/lnd:0.13.0-beta -t zetanova/lnd:latest --push .
+export LN_VERSION=0.14.0-beta
+docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 --build-arg LN_VERSION -t zetanova/lnd:0.14.0-beta -t zetanova/lnd:latest --push .
 ```
 
 ## docker setup
@@ -31,6 +31,7 @@ tor.socks=tor.ip.add.ress:9050
 tor.control=tor.ip.add.ress:9051
 tor.password=tor_password
 tor.v3=1
+tor.skip-proxy-for-clearnet-targets=true
 watchtower.active=1
 watchtower.listen=0.0.0.0:9911
 watchtower.externalip=your.ip.add.ress
@@ -47,16 +48,16 @@ firewall-cmd --reload
 
 ## docker setup
 ```
-docker run -d --name lnd --restart=unless-stopped --stop-timeout 90 -v lnd:/home/lnd/.lnd -p 9735:9735 -p 9911:9911 zetanova/lnd:0.13.0-beta
+docker run -d --name lnd --restart=unless-stopped --stop-timeout 90 -v lnd:/home/lnd/.lnd -p 9735:9735 -p 9911:9911 zetanova/lnd:0.14.0-beta
    
 ```
 
 ## docker update
 ```
-docker pull zetanova/lnd:0.13.0-beta
+docker pull zetanova/lnd:0.14.0-beta
 docker stop lnd -t 90
 docker rm lnd
-docker run -d --name lnd --restart=unless-stopped --stop-timeout 90 -v lnd:/home/lnd/.lnd -p 9735:9735 -p 9911:9911 zetanova/lnd:0.13.0-beta
+docker run -d --name lnd --restart=unless-stopped --stop-timeout 90 -v lnd:/home/lnd/.lnd -p 9735:9735 -p 9911:9911 zetanova/lnd:0.14.0-beta
 docker exec -it lnd lncli unlock
 ```
 
