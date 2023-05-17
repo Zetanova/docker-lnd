@@ -1,8 +1,8 @@
 ## docker build multiarch 
 ```
-export LN_VERSION=0.15.4-beta
-export LN_SIGNER=guggero
-docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 --build-arg LN_VERSION --build-arg LN_SIGNER -t zetanova/lnd:0.15.4-beta -t zetanova/lnd:latest --push .
+export LN_VERSION=0.16.2-beta
+export LN_SIGNER=roasbeef
+docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 --build-arg LN_VERSION --build-arg LN_SIGNER -t zetanova/lnd:0.16.2-beta -t zetanova/lnd:latest --push .
 ```
 
 ## docker setup
@@ -49,16 +49,16 @@ firewall-cmd --reload
 
 ## docker setup
 ```
-docker run -d --name lnd --restart=unless-stopped --stop-timeout 90 -v lnd:/home/lnd/.lnd -p 9735:9735 -p 9911:9911 zetanova/lnd:0.15.4-beta
+docker run -d --name lnd --restart=unless-stopped --stop-timeout 90 -v lnd:/home/lnd/.lnd -p 9735:9735 -p 9911:9911 zetanova/lnd:0.16.2-beta
    
 ```
 
 ## docker update
 ```
-docker pull zetanova/lnd:0.15.4-beta
+docker pull zetanova/lnd:0.16.2-beta
 docker stop lnd -t 90
 docker rm lnd
-docker run -d --name lnd --restart=unless-stopped --stop-timeout 90 -v lnd:/home/lnd/.lnd -p 9735:9735 -p 9911:9911 zetanova/lnd:0.15.4-beta
+docker run -d --name lnd --restart=unless-stopped --stop-timeout 90 -v lnd:/home/lnd/.lnd -p 9735:9735 -p 9911:9911 zetanova/lnd:0.16.2-beta
 docker exec -it lnd lncli unlock
 ```
 

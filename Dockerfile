@@ -1,6 +1,5 @@
-FROM ubuntu:focal as build
+FROM ubuntu:22.04 as build
 ARG TARGETPLATFORM
-#0.14.0-beta
 ARG LN_VERSION
 ARG LN_SIGNER="roasbeef"
 
@@ -23,7 +22,7 @@ RUN tar -xzf *.tar.gz -C . \
   && mv ./lnd-*-v${LN_VERSION} ./lnd
 
 
-FROM ubuntu:focal
+FROM ubuntu:22.04
 
 ENV PATH=/opt/lnd:$PATH
 
