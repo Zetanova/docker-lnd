@@ -1,8 +1,8 @@
 ## docker build multiarch 
 ```
-export LN_VERSION=0.18.3-beta
+export LN_VERSION=0.18.4-beta.rc1
 export LN_SIGNER=roasbeef
-docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 --build-arg LN_VERSION --build-arg LN_SIGNER -t zetanova/lnd:0.18.3-beta -t zetanova/lnd:latest --push .
+docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 --build-arg LN_VERSION --build-arg LN_SIGNER -t zetanova/lnd:0.18.4-beta.rc1 -t zetanova/lnd:latest --push .
 ```
 
 ## docker setup
